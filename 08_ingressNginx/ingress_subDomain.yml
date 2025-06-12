@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: web-apps-ingress
+    namespace: default
+    annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: / # strips the original path (/frontend or /backend) and rewrite to / before hitting the service.
+spec:
+    ingressClassName: nginx # that we installed controller
+   rules:
+  - host: frontend.100xdevs.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend-service # actual service name
+              port:
+                number: 80
+
+  - host: backend.100xdevs.com
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: backend-service # actual service name
+              port:
+                number: 80
+
+# 127.0.0.1 or  http://frontend.100xdevs.com
+# 127.0.0.1 or  http://backend.100xdevs.com
+
+
