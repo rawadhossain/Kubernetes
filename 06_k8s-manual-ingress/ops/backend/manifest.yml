@@ -1,42 +1,43 @@
+## Three manifests here in this file, one to create namespace, one for deployment to create 2 pods and one for service
 # create Namespace
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: backend-team
+    name: backend-team
 ---
 # create Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
-  namespace: backend-team
+    name: backend
+    namespace: backend-team
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: backend
-  template:
-    metadata:
-      labels:
-        app: backend
-    spec:
-      containers:
-        - name: backend
-          image: pptl8685/k8s-express
-          ports:
-            - containerPort: 3000
+    replicas: 2
+    selector:
+        matchLabels:
+            app: backend
+    template:
+        metadata:
+            labels:
+                app: backend
+        spec:
+            containers:
+                - name: backend
+                  image: pptl8685/k8s-express
+                  ports:
+                      - containerPort: 3000
 ---
 # create Service clusterIp
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
-  namespace: backend-team
+    name: backend
+    namespace: backend-team
 spec:
-  selector:
-    app: backend
-  ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
-  type: ClusterIP
+    selector:
+        app: backend
+    ports:
+        - protocol: TCP
+          port: 3000
+          targetPort: 3000
+    type: ClusterIP
