@@ -49,9 +49,8 @@ Open notepad and save this command:
 Set-Alias -Name k -Value kubectl
 ```
 
-Now can use k as
+Now can use "k" as kubectl
 
-<br>
 
 # Commands
 
